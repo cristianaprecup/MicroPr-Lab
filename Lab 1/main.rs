@@ -11,27 +11,28 @@ fn main(){
         new(String::from("Asus"), String::from("i7"), 16),
         new(String::from("Dell"), String::from("i5"), 8),
         new(String::from("Lenovo"), String::from("i3"), 4)];
-    println!("Computers menu:");
-    println!("1. Display all computers");
-    println!("2. Print the computer with the largest memory\n");
-
-    let input = read_i32();
-
-    match input {
-        1 => {
-            for computer in &computers {
-                display(computer);
+    println!("Computer menu:");
+    println!("a. print all computers");
+    println!("b. print the computer with the largest amount of memory");
+    let input=read();
+    match input.as_str() {
+        "a" => {for i in computers{
+                display(i);
             }
         },
-        _ => {
-            let mut computer_with_max : &Computer = &computers[0];
-            for computer in &computers {
-                if computer.memory_size > computer_with_max.memory_size {
-                    computer_with_max = computer;
+        "b" => {
+            let mut c : Computer = new(String::from(""), String::from(""), -1);
+            for i in computers{
+                if i.memory_size>c.memory_size{
+                    c=i;
                 }
             }
-            display(computer_with_max);
+            display(c);
         },
+        _ => {
+            println!("Invalid option!")
+        }
+
     }
 }
 
@@ -83,7 +84,8 @@ fn display(computer: Computer) {
     println!("Processor name: {}",computer.processor_name);
     println!("Memory size: {}",computer.memory_size);
 }
-fn read_i32() -> i32 {
-    let line = io::stdin().lines().next().unwrap().unwrap();
-    line.parse().unwrap()
+fn read() -> String{
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    input.trim().to_string()
 }
