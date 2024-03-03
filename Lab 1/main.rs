@@ -30,9 +30,9 @@ fn main(){
             display(c);
         },
         _ => {
-            println!("Invalid option!")
-        }
-
+            println!("Invalid option!");
+            
+    }
     }
 }
 
